@@ -1,0 +1,36 @@
+[
+    {
+        "id" : "001",
+        "nome" : "O-Jeeva",
+        "descricao" : "♦Um produto do barulho, exploda já seus coleguinhas com a nova O-Jeeva feita a base de cera de ouvido do Shrek!♦",
+        "preco" : "R$ 69.000.000,69",
+        "tag" : "bombas"
+    },
+
+
+    {
+        "id" : "002",
+        "nome" : "Kit de exercício em casa: básico",
+        "descricao" : "Halteres - pares de: 2, 3, 4, 5kg. Caneleiras - 4kg",
+        "preco" : "R$ 69,00",
+        "tag" : "musculacao"
+    },
+
+    {
+        "id" : "003",
+        "nome" : "Botas encantadas de Hermes",
+        "descricao" : "Com essas botas, você poderá correr na velocidade da luz!",
+        "preco" : "R$ 33.333.333,33",
+        "tag" : "roupas"
+    },
+
+    {
+        "id" : "004",
+        "nome" : "Bola de basquete",
+        "descricao" : "uma bola de basquete ok",
+        "preco" : "R$ 85,00",
+        "tag" : "basquete"
+    }
+    
+
+]
