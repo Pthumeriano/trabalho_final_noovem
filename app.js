@@ -107,7 +107,13 @@ app.get("/admin/produtos/editar/:product_id",function(req,res){
 })
 
 app.get("/admin/produtos/deletar/:product_id",function(req,res){
-    res.send("")
+    const produtos = require("./produtos.json");
+    produtos.forEach((produto)=>{
+        if(req.params.product_id == produto.id){
+            res.send(produto)
+        }
+    })
+    res.sendFile(path.join(__dirname, "pages","erro.html"));
 })
 
 app.get("/admin/catalogos",function(req,res){
