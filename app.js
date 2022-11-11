@@ -1,5 +1,17 @@
 const express = require("express");
+const { dirname } = require("path");
 const app = express();
+const path = require("path");
+const fs = require("fs");
+app.use(express.static(__dirname + '/pages'));
+app.use(express.static(path.join(__dirname,'pages', 'images')));
+
+function readAndServe(path, res) {
+    fs.readFile(path, function (err, data) {
+        res.end(data);
+    })
+}
+
 //vvvvvvvvvvvvv VK vvvvvvvvvvvvvv
 
 app.get("/",function(req,res){
@@ -77,7 +89,7 @@ app.get("/produtos/:product_id",function(req,res){
 //vvvvvvvvvvvvvvvvvv Heldin vvvvvvvvvvvvvvvvvvvvv
 
 app.get("/admin/produtos",function(req,res){
-    res.send("")
+    res.sendFile(path.join(__dirname, "pages","admin.html"));
 })
 
 app.get("/admin/produtos/criar",function(req,res){
@@ -85,7 +97,13 @@ app.get("/admin/produtos/criar",function(req,res){
 })
 
 app.get("/admin/produtos/editar/:product_id",function(req,res){
-    res.send("")
+    const produtos = require("./produtos.json");
+    produtos.forEach((produto)=>{
+        if(req.params.product_id == produto.id){
+            res.send(produto)
+        }
+    })
+    res.sendFile(path.join(__dirname, "pages","erro.html"));
 })
 
 app.get("/admin/produtos/deletar/:product_id",function(req,res){
