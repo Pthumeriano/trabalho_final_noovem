@@ -4,33 +4,33 @@ const app = express();
 const path = require("path");
 const fs = require("fs");
 app.use(express.static(__dirname + '/pages'));
-app.use(express.static(path.join(__dirname,'pages', 'images')));
+app.use(express.static(path.join(__dirname, 'pages', 'images')));
 
 function readAndServe(path, res) {
-    fs.readFile(path, function (err, data) {
+    fs.readFile(path, function(err, data) {
         res.end(data);
     })
 }
 
 //vvvvvvvvvvvvv VK vvvvvvvvvvvvvv
 
-app.get("/",function(req,res){
+app.get("/", function(req, res) {
     res.send("")
 })
 
-app.get("/cadastrar",function(req,res){
+app.get("/cadastrar", function(req, res) {
     res.send("")
 })
 
-app.post("/cadastrar",function(req,res){
+app.post("/cadastrar", function(req, res) {
     res.send("")
 })
 
-app.get("/login",function(req,res){
+app.get("/login", function(req, res) {
     res.send("")
 })
 
-app.post("/login",function(req,res){
+app.post("/login", function(req, res) {
     res.send("")
 })
 
@@ -40,23 +40,23 @@ app.post("/login",function(req,res){
 //vvvvvvvvvvvvvvvvvv CS GO vvvvvvvvvvvvvvvvv
 
 
-app.get("/carrinho",function(req,res){
+app.get("/carrinho", function(req, res) {
     res.send("")
 })
 
-app.get("/carrinho/checkout",function(req,res){
+app.get("/carrinho/checkout", function(req, res) {
     res.send("")
 })
 
-app.get("/carrinho/entrega",function(req,res){
+app.get("/carrinho/entrega", function(req, res) {
     res.send("")
 })
 
-app.get("/carrinho/pagamento",function(req,res){
+app.get("/carrinho/pagamento", function(req, res) {
     res.send("")
 })
 
-app.get("/favoritos",function(req,res){
+app.get("/favoritos", function(req, res) {
     res.send("")
 })
 
@@ -64,23 +64,23 @@ app.get("/favoritos",function(req,res){
 
 //vvvvvvvvvvvvvvvvvv Rogerio vvvvvvvvvvvvvvvvvvvvv
 
-app.get("/catalogo",function(req,res){
+app.get("/catalogo", function(req, res) {
     res.send("")
 })
 
-app.get("/promocoes",function(req,res){
+app.get("/promocoes", function(req, res) {
     res.send("")
 })
 
-app.get("/:product_type",function(req,res){
+app.get("/:product_type", function(req, res) {
     res.send("")
 })
 
-app.get("/:product_name",function(req,res){
+app.get("/:product_name", function(req, res) {
     res.send("")
 })
 
-app.get("/produtos/:product_id",function(req,res){
+app.get("/produtos/:product_id", function(req, res) {
     res.send("")
 })
 
@@ -88,47 +88,47 @@ app.get("/produtos/:product_id",function(req,res){
 
 //vvvvvvvvvvvvvvvvvv Heldin vvvvvvvvvvvvvvvvvvvvv
 
-app.get("/admin/produtos",function(req,res){
-    res.sendFile(path.join(__dirname, "pages","admin.html"));
+app.get("/admin/produtos", function(req, res) {
+    res.sendFile(path.join(__dirname, "pages", "admin.html"));
 })
 
-app.get("/admin/produtos/criar",function(req,res){
+app.get("/admin/produtos/criar", function(req, res) {
     res.send("")
 })
 
-app.get("/admin/produtos/editar/:product_id",function(req,res){
+app.get("/admin/produtos/editar/:product_id", function(req, res) {
     const produtos = require("./produtos.json");
-    produtos.forEach((produto)=>{
-        if(req.params.product_id == produto.id){
+    produtos.forEach((produto) => {
+        if (req.params.product_id == produto.id) {
             res.send(produto)
         }
     })
-    res.sendFile(path.join(__dirname, "pages","erro.html"));
+    res.sendFile(path.join(__dirname, "pages", "erro.html"));
 })
 
-app.get("/admin/produtos/deletar/:product_id",function(req,res){
+app.get("/admin/produtos/deletar/:product_id", function(req, res) {
     const produtos = require("./produtos.json");
-    produtos.forEach((produto)=>{
-        if(req.params.product_id == produto.id){
+    produtos.forEach((produto) => {
+        if (req.params.product_id == produto.id) {
             res.send(produto)
         }
     })
-    res.sendFile(path.join(__dirname, "pages","erro.html"));
+    res.sendFile(path.join(__dirname, "pages", "erro.html"));
 })
 
-app.get("/admin/catalogos",function(req,res){
+app.get("/admin/catalogos", function(req, res) {
     res.send("")
 })
 
-app.get("/admin/catalogos/criar",function(req,res){
+app.get("/admin/catalogos/criar", function(req, res) {
     res.send("")
 })
 
-app.get("/admin/catalogos/editar/:product_id",function(req,res){
+app.get("/admin/catalogos/editar/:product_id", function(req, res) {
     res.send("")
 })
 
-app.get("/admin/catalogos/deletar/:product_id",function(req,res){
+app.get("/admin/catalogos/deletar/:product_id", function(req, res) {
     res.send("")
 })
 
@@ -136,11 +136,10 @@ app.get("/admin/catalogos/deletar/:product_id",function(req,res){
 
 
 
-app.listen(6969,function(erro){
-    if(erro){
+app.listen(6969, function(erro) {
+    if (erro) {
         console.log("Erro ao iniciar")
-    }
-    else{
+    } else {
         console.log("Servidor iniciado")
     }
 
