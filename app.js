@@ -144,17 +144,22 @@ app.post('/admin/produtos/editar', function(req, res) {
     res.redirect('/admin/painel')
 })
 
-app.get("/admin/produtos/deletar/:product_id", function(req, res) {
+app.get("/admin/produtos/deletar", function(req, res) {
+    res.render('admin_deletar_produtos')
+})
+
+
+app.post("/admin/produtos/deletar", function(req, res) {
     let produtos = require("./produtos.json");
-    produtos = produtos.filter(produto => req.params.product_id != produto.id);
-    fs.writeFile('./produtos.json', JSON.stringify(produtos), function(error) {
+    produtos = produtos.filter(produto => req.body.id != produto.id);
+    fs.writeFile('./produtos.json', JSON.stringify(produtos, null, 4), function(error) {
         if (error) {
             console.log('erro')
         } else {
             console.log('sucesso')
         }
     });
-    //res.redirect('/admin/painel')
+    res.redirect('/admin/painel')
 })
 
 app.get("/admin/catalogos", function(req, res) {
