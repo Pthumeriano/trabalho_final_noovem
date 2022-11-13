@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar</title>
+</head>
+
+<body>
+    <div class="card">
+        <h1>Painel administrativo: Editar produto</h1>
+        <form action="/admin/produtos/editar" method="POST">
+            ID <input type="text" readonly value="{{id}}" name="id"><br>
+            Nome <input type="text" value="{{nome}}" name="nome"> <br>
+            Descricao <input type="text" value="{{descricao}}" name="descricao"> <br>
+            Preço <input type="text" value="{{preco}}" name="preco"><br>
+            Tag <input type="text" value="{{tag}}" name="tag"> <br>
+            <input type="submit" value="Editar">
+        </form>
+    </div>
+</body>
+
+</html>

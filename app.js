@@ -3,8 +3,18 @@ const { dirname } = require("path");
 const app = express();
 const path = require("path");
 const fs = require("fs");
+
+const { engine } = require('express-handlebars');
+
+app.set('views', path.join(__dirname + "/pages"));
+app.set('view engine', 'handlebars');
+app.engine('handlebars', engine());
+
 app.use(express.static(__dirname + '/pages'));
 app.use(express.static(path.join(__dirname, 'pages', 'images')));
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }))
 
 function readAndServe(path, res) {
     fs.readFile(path, function(err, data) {
@@ -88,6 +98,10 @@ app.get("/produtos/:product_id", function(req, res) {
 
 //vvvvvvvvvvvvvvvvvv Heldin vvvvvvvvvvvvvvvvvvvvv
 
+app.get("/admin/painel", function(req, res) {
+    res.sendFile(path.join(__dirname, "pages", "admin.html"));
+})
+
 app.get("/admin/produtos", function(req, res) {
     res.sendFile(path.join(__dirname, "pages", "admin.html"));
 })
@@ -100,20 +114,47 @@ app.get("/admin/produtos/editar/:product_id", function(req, res) {
     const produtos = require("./produtos.json");
     produtos.forEach((produto) => {
         if (req.params.product_id == produto.id) {
-            res.send(produto)
+            res.render('admin_editar_produtos', { id: produto.id, nome: produto.nome, preco: produto.preco, tag: produto.tag, descricao: produto.descricao })
         }
     })
-    res.sendFile(path.join(__dirname, "pages", "erro.html"));
+})
+
+app.post('/admin/produtos/editar', function(req, res) {
+    let produtos = require('./produtos.json');
+    const { id, nome, descricao, tag, preco } = req.body;
+    produtos.forEach((produto, indice) => {
+        if (id == produto.id) {
+            const novoProduto = {
+                id: produto.id,
+                nome,
+                descricao,
+                tag,
+                preco
+            }
+            produtos[indice] = novoProduto;
+            fs.writeFile('./produtos.json', JSON.stringify(produtos), function(error) {
+                if (error) {
+                    console.log('erro')
+                } else {
+                    console.log('sucesso')
+                }
+            })
+        }
+    })
+    res.redirect('/admin/painel')
 })
 
 app.get("/admin/produtos/deletar/:product_id", function(req, res) {
-    const produtos = require("./produtos.json");
-    produtos.forEach((produto) => {
-        if (req.params.product_id == produto.id) {
-            res.send(produto)
+    let produtos = require("./produtos.json");
+    produtos = produtos.filter(produto => req.params.product_id != produto.id);
+    fs.writeFile('./produtos.json', JSON.stringify(produtos), function(error) {
+        if (error) {
+            console.log('erro')
+        } else {
+            console.log('sucesso')
         }
-    })
-    res.sendFile(path.join(__dirname, "pages", "erro.html"));
+    });
+    //res.redirect('/admin/painel')
 })
 
 app.get("/admin/catalogos", function(req, res) {
